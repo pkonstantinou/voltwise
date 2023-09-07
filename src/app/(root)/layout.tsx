@@ -1,8 +1,9 @@
 import { Inter } from "next/font/google";
 import type { Metadata } from "next";
-
 import { ClerkProvider } from "@clerk/nextjs";
 import { dark } from "@clerk/themes";
+
+import { Topbar } from "@/components/layout";
 
 import "../globals.css";
 
@@ -22,7 +23,8 @@ export default function RootLayout({
     <ClerkProvider appearance={{ baseTheme: dark }}>
       <html lang="en">
         <body className={inter.className}>
-          <main className="bg-black w-full h-[100vh]">{children}</main>
+          <Topbar />
+          <main className="bg-black w-full h-[100vh] pt-16">{children}</main>
         </body>
       </html>
     </ClerkProvider>
