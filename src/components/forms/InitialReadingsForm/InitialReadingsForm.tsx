@@ -1,6 +1,5 @@
 "use client";
 
-import * as z from "zod";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Button } from "@/components/ui/button";
@@ -13,20 +12,27 @@ import {
 } from "@/components/ui/card";
 import { Form } from "@/components/ui/form";
 import { ReadingsValidation } from "@/lib/validations";
+import { ReadingsType } from "@/types";
 import { ReadingInput } from "./ReadingInput";
 
-export const InitialReadingsForm = () => {
-  const form = useForm<z.infer<typeof ReadingsValidation>>({
+type InitialReadingsFormProps = {
+  savedReadings: ReadingsType;
+};
+
+export const InitialReadingsForm: React.FC<InitialReadingsFormProps> = ({
+  savedReadings,
+}) => {
+  const form = useForm<ReadingsType>({
     resolver: zodResolver(ReadingsValidation),
     defaultValues: {
-      day_consumption: "",
-      night_consumption: "",
-      total_production: "",
-      outflow_production: "",
+      day_consumption: savedReadings.day_consumption,
+      night_consumption: savedReadings.night_consumption,
+      total_production: savedReadings.total_production,
+      outflow_production: savedReadings.outflow_production,
     },
   });
 
-  const onSubmit = async (values: z.infer<typeof ReadingsValidation>) => {
+  const onSubmit = async (values: ReadingsType) => {
     console.log({ values });
   };
 
@@ -36,7 +42,7 @@ export const InitialReadingsForm = () => {
         <form onSubmit={form.handleSubmit(onSubmit)}>
           <CardHeader>
             <CardTitle className="text-xl font-normal">
-              Αρχικές τιμές καταμετρητών
+              Αρχικές τιμές μετρητών
             </CardTitle>
           </CardHeader>
           <CardContent>

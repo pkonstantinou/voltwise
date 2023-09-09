@@ -1,4 +1,3 @@
-import * as z from "zod";
 import { UseFormReturn } from "react-hook-form";
 import {
   FormControl,
@@ -7,11 +6,11 @@ import {
   FormLabel,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { ReadingsValidation } from "@/lib/validations";
+import { ReadingsType } from "@/types";
 
 type ReadingInputProps = {
-  form: UseFormReturn<z.infer<typeof ReadingsValidation>>;
-  name: keyof z.infer<typeof ReadingsValidation>;
+  form: UseFormReturn<ReadingsType>;
+  name: keyof ReadingsType;
   label: string;
   placeholder?: string;
 };
