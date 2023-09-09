@@ -27,12 +27,12 @@ export const ValueCard: React.FC<ValueCardProps> = ({
       <div className={`w-full h-1.5 ${colorClass}`} />
       <div className="w-full h-full p-4">
         <div className="flex justify-between items-center">
-          <p className="text-white font-light text-lg">{label}</p>
+          <p className="font-light text-lg">{label}</p>
           {icon}
         </div>
         <div className="mt-8 flex justify-end items-end gap-1">
-          <p className="text-white text-3xl font-light text-center">{value}</p>
-          <p className="text-white">kWh</p>
+          <p className="text-3xl font-light text-center">{value}</p>
+          <p>kWh</p>
         </div>
       </div>
     </div>
