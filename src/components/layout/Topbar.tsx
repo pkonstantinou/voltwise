@@ -1,5 +1,6 @@
 import { SignOutButton } from "@clerk/nextjs";
 import { LogOut, Zap } from "lucide-react";
+import { Button } from "@/components/ui/button";
 
 export const Topbar = () => {
   return (
@@ -9,10 +10,9 @@ export const Topbar = () => {
         <p className="text-white text-xl font-semibold">Voltwise</p>
       </div>
       <SignOutButton>
-        <div className="flex justify-center items-center gap-2 cursor-pointer">
-          <p className="text-white text-sm">Έξοδος</p>
-          <LogOut size={24} color="white" />
-        </div>
+        <Button variant="ghost">
+          Έξοδος <LogOut className="ml-2" size={20} />
+        </Button>
       </SignOutButton>
     </nav>
   );

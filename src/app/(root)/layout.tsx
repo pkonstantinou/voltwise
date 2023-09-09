@@ -4,6 +4,7 @@ import { ClerkProvider } from "@clerk/nextjs";
 import { dark } from "@clerk/themes";
 
 import { Sidebar, Topbar } from "@/components/layout";
+import { ThemeProvider } from "@/components/theme";
 
 import "../globals.css";
 
@@ -26,11 +27,13 @@ export default function RootLayout({
     <ClerkProvider appearance={{ baseTheme: dark }}>
       <html lang="en">
         <body className={ubuntu.className}>
-          <Topbar />
-          <main className="bg-black w-full h-[100vh] pt-16 flex">
-            <Sidebar />
-            {children}
-          </main>
+          <ThemeProvider attribute="class" defaultTheme="dark">
+            <Topbar />
+            <main className="bg-black w-full h-[100vh] pt-16 flex">
+              <Sidebar />
+              {children}
+            </main>
+          </ThemeProvider>
         </body>
       </html>
     </ClerkProvider>
