@@ -1,8 +1,10 @@
 import * as z from "zod";
 
+const regexExp = /^(0|[1-9]\d*)$/;
+
 export const ReadingsValidation = z.object({
-  day_consumption: z.string().nonempty(),
-  night_consumption: z.string().nonempty(),
-  total_production: z.string().nonempty(),
-  outflow_production: z.string().nonempty(),
+  day_consumption: z.string().regex(regexExp),
+  night_consumption: z.string().regex(regexExp),
+  total_production: z.string().regex(regexExp),
+  outflow_production: z.string().regex(regexExp),
 });
