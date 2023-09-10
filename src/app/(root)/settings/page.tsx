@@ -1,17 +1,20 @@
+import { currentUser } from "@clerk/nextjs";
 import { Page } from "@/components/layout";
 import { InitialReadingsForm } from "@/components/forms";
+import { getUserSettings } from "@/lib/actions/user.actions";
 
-const SettingsPage = () => {
-  const savedReadings = {
-    day_consumption: "0",
-    night_consumption: "0",
-    total_production: "200",
-    outflow_production: "0",
-  };
+const SettingsPage = async () => {
+  const user = await currentUser();
+  if (!user) return null;
+
+  const settings = await getUserSettings(user.id);
 
   return (
     <Page header="Ρυθμίσεις">
-      <InitialReadingsForm savedReadings={savedReadings} />
+      <InitialReadingsForm
+        savedInitialReadings={settings.initialReadings}
+        userId={user.id}
+      />
     </Page>
   );
 };

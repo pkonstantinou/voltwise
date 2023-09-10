@@ -26,10 +26,15 @@ export const ReadingInput: React.FC<ReadingInputProps> = ({
       control={form.control}
       name={name}
       render={({ field }) => (
-        <FormItem className="mb-2">
-          <FormLabel>{label}</FormLabel>
+        <FormItem className="mb-0.5 flex justify-between items-center">
+          <FormLabel className="font-light">{label}</FormLabel>
           <FormControl>
-            <Input type="number" placeholder={placeholder} {...field} />
+            <Input
+              className="w-48"
+              type="number"
+              placeholder={placeholder}
+              {...field}
+            />
           </FormControl>
         </FormItem>
       )}
