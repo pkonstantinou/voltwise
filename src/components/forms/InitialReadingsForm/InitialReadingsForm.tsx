@@ -62,13 +62,11 @@ export const InitialReadingsForm: React.FC<InitialReadingsFormProps> = ({
 
   return (
     <Card className="w-[350px]">
+      <CardHeader>
+        <CardTitle>Αρχικές τιμές μετρητών</CardTitle>
+      </CardHeader>
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)}>
-          <CardHeader className="pb-4">
-            <CardTitle className="text-lg font-normal">
-              Αρχικές τιμές μετρητών
-            </CardTitle>
-          </CardHeader>
           <CardContent>
             <ReadingInput
               form={form}
@@ -95,7 +93,7 @@ export const InitialReadingsForm: React.FC<InitialReadingsFormProps> = ({
               placeholder="Μονάδες σε kWh"
             />
           </CardContent>
-          <CardFooter className="flex justify-end">
+          <CardFooter>
             <Button
               className="w-32"
               variant="outline"
