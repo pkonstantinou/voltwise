@@ -5,6 +5,7 @@ import { dark } from "@clerk/themes";
 
 import { Sidebar, Topbar } from "@/components/layout";
 import { ThemeProvider } from "@/components/theme";
+import { Toaster } from "@/components/ui/toaster";
 
 import "../globals.css";
 
@@ -34,6 +35,7 @@ export default function RootLayout({
               {children}
             </main>
           </ThemeProvider>
+          <Toaster />
         </body>
       </html>
     </ClerkProvider>

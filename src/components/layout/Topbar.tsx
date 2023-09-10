@@ -7,7 +7,7 @@ export const Topbar = () => {
     <nav className="w-full h-16  px-14 bg-black border-b border-[#ffffff22] fixed top-0 z-30 flex items-center justify-between">
       <div className="flex justify-center items-center gap-2">
         <Zap size={36} color="white" strokeOpacity={0.6} />
-        <p className="text-white text-xl font-semibold">Voltwise</p>
+        <p className="text-xl font-semibold">Voltwise</p>
       </div>
       <SignOutButton>
         <Button variant="ghost">
