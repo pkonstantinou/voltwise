@@ -1,4 +1,4 @@
-import { UseFormReturn } from "react-hook-form";
+import { Control } from "react-hook-form";
 import {
   FormControl,
   FormField,
@@ -9,21 +9,21 @@ import { Input } from "@/components/ui/input";
 import { ReadingsType } from "@/types";
 
 type ReadingInputProps = {
-  form: UseFormReturn<ReadingsType>;
+  control: Control<ReadingsType>;
   name: keyof ReadingsType;
   label: string;
   placeholder?: string;
 };
 
 export const ReadingInput: React.FC<ReadingInputProps> = ({
-  form,
+  control,
   name,
   label,
   placeholder,
 }) => {
   return (
     <FormField
-      control={form.control}
+      control={control}
       name={name}
       render={({ field }) => (
         <FormItem className="mb-0.5 flex justify-between items-center">

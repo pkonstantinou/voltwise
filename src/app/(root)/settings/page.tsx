@@ -1,6 +1,6 @@
 import { currentUser } from "@clerk/nextjs";
 import { Page } from "@/components/layout";
-import { InitialReadingsForm } from "@/components/forms";
+import { InitialReadingsForm, InitialMonthYearForm } from "@/components/forms";
 import { getUserSettings } from "@/lib/actions/user.actions";
 
 const SettingsPage = async () => {
@@ -11,10 +11,16 @@ const SettingsPage = async () => {
 
   return (
     <Page header="Ρυθμίσεις">
-      <InitialReadingsForm
-        savedInitialReadings={settings.initialReadings}
-        userId={user.id}
-      />
+      <div className="flex gap-6 flex-wrap">
+        <InitialReadingsForm
+          savedInitialReadings={settings.initial_readings}
+          userId={user.id}
+        />
+        <InitialMonthYearForm
+          savedInitialMonthYear={settings.initial_month_year}
+          userId={user.id}
+        />
+      </div>
     </Page>
   );
 };

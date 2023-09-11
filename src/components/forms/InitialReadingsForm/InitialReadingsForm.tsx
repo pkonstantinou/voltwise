@@ -3,8 +3,6 @@
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Loader2 } from "lucide-react";
-import { Button } from "@/components/ui/button";
 import {
   Card,
   CardContent,
@@ -14,10 +12,11 @@ import {
 } from "@/components/ui/card";
 import { Form } from "@/components/ui/form";
 import { useToast } from "@/components/ui/use-toast";
+import { Button } from "@/components/buttons";
 import { ReadingsValidation } from "@/lib/validations";
 import { ReadingsType } from "@/types";
 import { ReadingInput } from "./ReadingInput";
-import { updateInitialReadings } from "@/lib/actions/user.actions";
+import { updateUserSettings } from "@/lib/actions/user.actions";
 
 type InitialReadingsFormProps = {
   savedInitialReadings: ReadingsType;
@@ -44,7 +43,8 @@ export const InitialReadingsForm: React.FC<InitialReadingsFormProps> = ({
   const onSubmit = async (values: ReadingsType) => {
     try {
       setLoading(true);
-      await updateInitialReadings({ userId, initialReadings: values });
+      const settings = { initial_readings: values };
+      await updateUserSettings({ userId, settings });
       setLoading(false);
 
       toast({
@@ -61,7 +61,7 @@ export const InitialReadingsForm: React.FC<InitialReadingsFormProps> = ({
   };
 
   return (
-    <Card className="w-[350px]">
+    <Card className="w-[350px] self-start flex-shrink-0">
       <CardHeader>
         <CardTitle>Αρχικές τιμές μετρητών</CardTitle>
       </CardHeader>
@@ -69,25 +69,25 @@ export const InitialReadingsForm: React.FC<InitialReadingsFormProps> = ({
         <form onSubmit={form.handleSubmit(onSubmit)}>
           <CardContent>
             <ReadingInput
-              form={form}
+              control={form.control}
               name="day_consumption"
               label="Ημερήσιο"
               placeholder="Μονάδες σε kWh"
             />
             <ReadingInput
-              form={form}
+              control={form.control}
               name="night_consumption"
               label="Νυχτερινό"
               placeholder="Μονάδες σε kWh"
             />
             <ReadingInput
-              form={form}
+              control={form.control}
               name="total_production"
               label="Παραγωγή"
               placeholder="Μονάδες σε kWh"
             />
             <ReadingInput
-              form={form}
+              control={form.control}
               name="outflow_production"
               label="Εκροή"
               placeholder="Μονάδες σε kWh"
@@ -98,13 +98,9 @@ export const InitialReadingsForm: React.FC<InitialReadingsFormProps> = ({
               className="w-32"
               variant="outline"
               type="submit"
-              disabled={loading}
+              loading={loading}
             >
-              {loading ? (
-                <Loader2 size={20} className="animate-spin" />
-              ) : (
-                "Αποθήκευση"
-              )}
+              Αποθήκευση
             </Button>
           </CardFooter>
         </form>
