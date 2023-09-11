@@ -1,35 +1,44 @@
 "use server";
 
 import { revalidatePath } from "next/cache";
+import { omitBy, isNull } from "lodash";
 import { connectToDB } from "../mongoose";
 import { User } from "../models/user.model";
-import { ReadingsType, UserSettingsType } from "@/types";
+import { UserSettingsType } from "@/types";
 
-type UpdateIntialReadingsParams = {
+type UpdateUserSettingsParams = {
   userId: string;
-  initialReadings: ReadingsType;
+  settings: Partial<UserSettingsType>;
 };
 
-export const updateInitialReadings = async ({
+export const updateUserSettings = async ({
   userId,
-  initialReadings,
-}: UpdateIntialReadingsParams): Promise<void> => {
+  settings,
+}: UpdateUserSettingsParams): Promise<void> => {
   try {
-    await connectToDB();
+    connectToDB();
+
+    const settingsToUpdate = omitBy(
+      {
+        "settings.initial_readings": settings.initial_readings
+          ? settings.initial_readings
+          : null,
+        "settings.initial_month_year": settings.initial_month_year
+          ? settings.initial_month_year
+          : null,
+      },
+      isNull
+    );
 
     await User.findOneAndUpdate(
       { id: userId },
-      {
-        settings: { initialReadings },
-      },
+      { ...settingsToUpdate },
       { upsert: true }
     );
 
     revalidatePath("/settings");
   } catch (error: any) {
-    throw new Error(
-      `Failed to update user settings | initialReadings: ${error.message}`
-    );
+    throw new Error(`Failed to update user settings: ${error.message}`);
   }
 };
 
@@ -42,15 +51,17 @@ export const getUserSettings = async (
     const user = await User.findOne({ id: userId });
 
     const settings = {
-      initialReadings: {
-        day_consumption: user?.settings?.initialReadings?.day_consumption || "",
+      initial_readings: {
+        day_consumption:
+          user?.settings?.initial_readings?.day_consumption || "",
         night_consumption:
-          user?.settings?.initialReadings?.night_consumption || "",
+          user?.settings?.initial_readings?.night_consumption || "",
         total_production:
-          user?.settings?.initialReadings?.total_production || "",
+          user?.settings?.initial_readings?.total_production || "",
         outflow_production:
-          user?.settings?.initialReadings?.outflow_production || "",
+          user?.settings?.initial_readings?.outflow_production || "",
       },
+      initial_month_year: user?.settings?.initial_month_year || "",
     };
 
     return settings;

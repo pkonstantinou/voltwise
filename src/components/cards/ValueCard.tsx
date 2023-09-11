@@ -23,7 +23,7 @@ export const ValueCard: React.FC<ValueCardProps> = ({
   const colorClass = colorMap[color];
 
   return (
-    <div className="w-64 h-36 rounded-lg border border-[#ffffff22] overflow-hidden">
+    <div className="w-64 h-36 rounded-lg border border-neutral-800 overflow-hidden">
       <div className={`w-full h-1.5 ${colorClass}`} />
       <div className="w-full h-full p-4">
         <div className="flex justify-between items-center">

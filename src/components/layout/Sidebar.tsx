@@ -4,13 +4,13 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 
 import { Home, Settings } from "lucide-react";
-import { Button } from "@/components/ui/button";
+import { Button } from "@/components/buttons";
 
 export const Sidebar = () => {
   const pathname = usePathname();
 
   return (
-    <section className="w-56 border-r border-[#ffffff22] overflow-y-scroll p-4 flex flex-col items-center justify-between">
+    <section className="w-56 border-r border-neutral-800 overflow-y-scroll p-4 flex flex-col items-center justify-between">
       <Link href="/">
         <Button
           variant="ghost"
