@@ -4,18 +4,13 @@ import { useState } from "react";
 import * as z from "zod";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import {
-  Card,
-  CardContent,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
+import * as ShadCard from "@/components/ui/card";
 import { Form } from "@/components/ui/form";
 import { useToast } from "@/components/ui/use-toast";
 import { Button } from "@/components/buttons";
 import { updateUserSettings } from "@/lib/actions/user.actions";
 import { LanguageSelect } from "./LanguageSelect";
+import { toastDesc } from "./utils";
 
 const FormSchema = z.object({
   language: z.string().nonempty(),
@@ -47,43 +42,37 @@ export const LanguageForm: React.FC<LanguageFormProps> = ({
       await updateUserSettings({ userId, settings });
       setLoading(false);
 
-      toast({
-        description: "Η γλώσσα συστήματος αποθηκεύτηκε με επιτυχία.",
-      });
+      toast({ description: toastDesc.success });
     } catch {
-      toast({
-        variant: "destructive",
-        description:
-          "Παρουσιάστηκε πρόβλημα κατα την αποθήκευση της γλώσσας συστήματος.",
-      });
+      toast({ variant: "destructive", description: toastDesc.error });
     }
   };
 
-  const saveDisabled = form.getValues().language === savedLanguage;
+  const isSaveBtnDisabled = savedLanguage === form.watch("language");
 
   return (
-    <Card className="w-[330px] self-start flex-shrink-0">
-      <CardHeader>
-        <CardTitle>Γλώσσα συστήματος</CardTitle>
-      </CardHeader>
+    <ShadCard.Card className="w-[330px] self-start flex-shrink-0">
+      <ShadCard.CardHeader>
+        <ShadCard.CardTitle>Γλώσσα συστήματος</ShadCard.CardTitle>
+      </ShadCard.CardHeader>
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)}>
-          <CardContent>
+          <ShadCard.CardContent>
             <LanguageSelect control={form.control} />
-          </CardContent>
-          <CardFooter>
+          </ShadCard.CardContent>
+          <ShadCard.CardFooter>
             <Button
               className="w-32"
               variant="outline"
               type="submit"
               loading={loading}
-              disabled={saveDisabled}
+              disabled={isSaveBtnDisabled}
             >
               Αποθήκευση
             </Button>
-          </CardFooter>
+          </ShadCard.CardFooter>
         </form>
       </Form>
-    </Card>
+    </ShadCard.Card>
   );
 };

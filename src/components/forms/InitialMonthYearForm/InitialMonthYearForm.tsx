@@ -4,18 +4,13 @@ import { useState } from "react";
 import * as z from "zod";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import {
-  Card,
-  CardContent,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
+import * as ShadCard from "@/components/ui/card";
 import { Form } from "@/components/ui/form";
 import { useToast } from "@/components/ui/use-toast";
 import { Button } from "@/components/buttons";
 import { updateUserSettings } from "@/lib/actions/user.actions";
 import { MonthYearSelect } from "./MonthYearSelect";
+import { toastDesc } from "./utils";
 
 const FormSchema = z.object({
   initial_month_year: z.string().nonempty(),
@@ -42,6 +37,9 @@ export const InitialMonthYearForm: React.FC<InitialReadingsFormProps> = ({
     },
   });
 
+  const watchedInitialMonthYear = form.watch("initial_month_year");
+  console.log({ watchedInitialMonthYear });
+
   const onSubmit = async (values: z.infer<typeof FormSchema>) => {
     try {
       setLoading(true);
@@ -49,45 +47,38 @@ export const InitialMonthYearForm: React.FC<InitialReadingsFormProps> = ({
       await updateUserSettings({ userId, settings });
       setLoading(false);
 
-      toast({
-        description:
-          "Ο μήνας και το έτος των αρχικών σας τιμών αποθηκεύτηκαν με επιτυχία.",
-      });
+      toast({ description: toastDesc.success });
     } catch {
-      toast({
-        variant: "destructive",
-        description:
-          "Παρουσιάστηκε πρόβλημα κατα την αποθήκευση του μήνα και έτους των αρχικών σας τιμών.",
-      });
+      toast({ variant: "destructive", description: toastDesc.error });
     }
   };
 
-  const saveDisabled =
-    form.getValues().initial_month_year === savedInitialMonthYear;
+  const isSaveBtnDisabled =
+    savedInitialMonthYear === form.watch("initial_month_year");
 
   return (
-    <Card className="w-[330px] self-start flex-shrink-0">
-      <CardHeader>
-        <CardTitle>Μήνας και έτος αρχικών τιμών</CardTitle>
-      </CardHeader>
+    <ShadCard.Card className="w-[330px] self-start flex-shrink-0">
+      <ShadCard.CardHeader>
+        <ShadCard.CardTitle>Μήνας και έτος αρχικών τιμών</ShadCard.CardTitle>
+      </ShadCard.CardHeader>
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)}>
-          <CardContent>
+          <ShadCard.CardContent>
             <MonthYearSelect control={form.control} locale="el" />
-          </CardContent>
-          <CardFooter>
+          </ShadCard.CardContent>
+          <ShadCard.CardFooter>
             <Button
               className="w-32"
               variant="outline"
               type="submit"
               loading={loading}
-              disabled={saveDisabled}
+              disabled={isSaveBtnDisabled}
             >
               Αποθήκευση
             </Button>
-          </CardFooter>
+          </ShadCard.CardFooter>
         </form>
       </Form>
-    </Card>
+    </ShadCard.Card>
   );
 };

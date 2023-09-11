@@ -56,3 +56,10 @@ export const generateMonthYearEntries = (
 
   return monthsYears;
 };
+
+export const toastDesc = {
+  success:
+    "Ο μήνας και το έτος των αρχικών σας τιμών αποθηκεύτηκαν με επιτυχία.",
+  error:
+    "Παρουσιάστηκε πρόβλημα κατα την αποθήκευση του μήνα και έτους των αρχικών σας τιμών.",
+};
