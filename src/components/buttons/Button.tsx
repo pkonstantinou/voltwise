@@ -15,7 +15,7 @@ export const Button: React.FC<ButtonProps> = (props) => {
   const { loading = false, children } = props;
 
   return (
-    <ShadButton {...props} disabled={loading}>
+    <ShadButton {...props} disabled={loading || props.disabled}>
       {loading ? <Loader2 size={20} className="animate-spin" /> : children}
     </ShadButton>
   );

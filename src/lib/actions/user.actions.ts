@@ -26,6 +26,7 @@ export const updateUserSettings = async ({
         "settings.initial_month_year": settings.initial_month_year
           ? settings.initial_month_year
           : null,
+        "settings.language": settings.language ? settings.language : null,
       },
       isNull
     );
@@ -62,6 +63,7 @@ export const getUserSettings = async (
           user?.settings?.initial_readings?.outflow_production || "",
       },
       initial_month_year: user?.settings?.initial_month_year || "",
+      language: user?.settings?.language || "el",
     };
 
     return settings;
