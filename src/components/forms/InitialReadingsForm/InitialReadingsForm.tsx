@@ -61,7 +61,7 @@ export const InitialReadingsForm: React.FC<InitialReadingsFormProps> = ({
   };
 
   return (
-    <Card className="w-[350px] self-start flex-shrink-0">
+    <Card className="w-[330px] self-start flex-shrink-0">
       <CardHeader>
         <CardTitle>Αρχικές τιμές μετρητών</CardTitle>
       </CardHeader>

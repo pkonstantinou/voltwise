@@ -1,6 +1,10 @@
 import { currentUser } from "@clerk/nextjs";
 import { Page } from "@/components/layout";
-import { InitialReadingsForm, InitialMonthYearForm } from "@/components/forms";
+import {
+  InitialReadingsForm,
+  InitialMonthYearForm,
+  LanguageForm,
+} from "@/components/forms";
 import { getUserSettings } from "@/lib/actions/user.actions";
 
 const SettingsPage = async () => {
@@ -20,6 +24,7 @@ const SettingsPage = async () => {
           savedInitialMonthYear={settings.initial_month_year}
           userId={user.id}
         />
+        <LanguageForm savedLanguage={settings.language} userId={user.id} />
       </div>
     </Page>
   );

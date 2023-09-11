@@ -15,19 +15,19 @@ import { Form } from "@/components/ui/form";
 import { useToast } from "@/components/ui/use-toast";
 import { Button } from "@/components/buttons";
 import { updateUserSettings } from "@/lib/actions/user.actions";
-import { MonthYearSelect } from "./MonthYearSelect";
+import { LanguageSelect } from "./LanguageSelect";
 
 const FormSchema = z.object({
-  initial_month_year: z.string().nonempty(),
+  language: z.string().nonempty(),
 });
 
-type InitialReadingsFormProps = {
-  savedInitialMonthYear: string;
+type LanguageFormProps = {
+  savedLanguage: string;
   userId: string;
 };
 
-export const InitialMonthYearForm: React.FC<InitialReadingsFormProps> = ({
-  savedInitialMonthYear,
+export const LanguageForm: React.FC<LanguageFormProps> = ({
+  savedLanguage,
   userId,
 }) => {
   const [loading, setLoading] = useState(false);
@@ -36,44 +36,40 @@ export const InitialMonthYearForm: React.FC<InitialReadingsFormProps> = ({
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
     defaultValues: {
-      initial_month_year: !!savedInitialMonthYear
-        ? savedInitialMonthYear
-        : undefined,
+      language: !!savedLanguage ? savedLanguage : undefined,
     },
   });
 
   const onSubmit = async (values: z.infer<typeof FormSchema>) => {
     try {
       setLoading(true);
-      const settings = { initial_month_year: values.initial_month_year };
+      const settings = { language: values.language };
       await updateUserSettings({ userId, settings });
       setLoading(false);
 
       toast({
-        description:
-          "Ο μήνας και το έτος των αρχικών σας τιμών αποθηκεύτηκαν με επιτυχία.",
+        description: "Η γλώσσα συστήματος αποθηκεύτηκε με επιτυχία.",
       });
     } catch {
       toast({
         variant: "destructive",
         description:
-          "Παρουσιάστηκε πρόβλημα κατα την αποθήκευση του μήνα και έτους των αρχικών σας τιμών.",
+          "Παρουσιάστηκε πρόβλημα κατα την αποθήκευση της γλώσσας συστήματος.",
       });
     }
   };
 
-  const saveDisabled =
-    form.getValues().initial_month_year === savedInitialMonthYear;
+  const saveDisabled = form.getValues().language === savedLanguage;
 
   return (
     <Card className="w-[330px] self-start flex-shrink-0">
       <CardHeader>
-        <CardTitle>Μήνας και έτος αρχικών τιμών</CardTitle>
+        <CardTitle>Γλώσσα συστήματος</CardTitle>
       </CardHeader>
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)}>
           <CardContent>
-            <MonthYearSelect control={form.control} locale="el" />
+            <LanguageSelect control={form.control} />
           </CardContent>
           <CardFooter>
             <Button
