@@ -7,7 +7,7 @@ type PageProps = PropsWithChildren<{
 
 export const Page: React.FC<PageProps> = ({ header, headerNote, children }) => {
   return (
-    <div className="w-full flex flex-col overflow-y-scroll m-10 flex-1">
+    <div className="w-full flex flex-col overflow-y-auto m-10 flex-1">
       <div className="flex items-center gap-3 mb-12">
         <h1 className="text-2xl">{header}</h1>
         {headerNote && (
