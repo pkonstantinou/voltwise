@@ -37,9 +37,6 @@ export const InitialMonthYearForm: React.FC<InitialReadingsFormProps> = ({
     },
   });
 
-  const watchedInitialMonthYear = form.watch("initial_month_year");
-  console.log({ watchedInitialMonthYear });
-
   const onSubmit = async (values: z.infer<typeof FormSchema>) => {
     try {
       setLoading(true);

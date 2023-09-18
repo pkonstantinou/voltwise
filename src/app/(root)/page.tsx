@@ -4,7 +4,7 @@ import { Page } from "@/components/layout";
 
 const HomePage = () => {
   return (
-    <Page header="Μετρήσεις" headerNote="Σεπτέμβριος 2023">
+    <Page header="Μετρήσεις">
       <div className="flex flex-wrap gap-5">
         <ValueCard
           label="Ημερήσιο"

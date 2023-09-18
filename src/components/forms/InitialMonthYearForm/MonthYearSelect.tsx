@@ -7,7 +7,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { FormControl, FormField, FormItem } from "@/components/ui/form";
-import { generateMonthYearEntries } from "./utils";
+import { generateMonthYearEntries } from "@/lib/utils";
 
 type MonthYearSelectProps = {
   control: Control<{ initial_month_year: string }>;
@@ -18,7 +18,7 @@ export const MonthYearSelect: React.FC<MonthYearSelectProps> = ({
   control,
   locale,
 }) => {
-  const monthYearEntries = generateMonthYearEntries(2023, locale);
+  const monthYearEntries = generateMonthYearEntries("202201", locale);
 
   return (
     <FormField

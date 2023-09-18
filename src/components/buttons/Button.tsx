@@ -12,10 +12,11 @@ type ButtonProps = PropsWithChildren<
 >;
 
 export const Button: React.FC<ButtonProps> = (props) => {
-  const { loading = false, children } = props;
+  const { loading, children, ...rest } = props;
+  const disabled = props.disabled || loading;
 
   return (
-    <ShadButton {...props} disabled={loading || props.disabled}>
+    <ShadButton {...rest} disabled={disabled}>
       {loading ? <Loader2 size={20} className="animate-spin" /> : children}
     </ShadButton>
   );
